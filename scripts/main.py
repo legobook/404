@@ -1,5 +1,6 @@
-import pygame, os, sys
+import pygame, os
 from desktop import desktop
+from utilities import *
 
 class game:
     def __init__(self):
@@ -13,6 +14,7 @@ class game:
 
         # Start the screen and clock
         self.screen = pygame.display.set_mode(window_resolution, pygame.FULLSCREEN | pygame.NOFRAME)
+        #self.screen = pygame.display.set_mode((800, 600))
         self.clock = pygame.time.Clock()
 
         # Set the name of the window
@@ -41,10 +43,10 @@ class game:
             delta_time = self.clock.tick(72) / 1000
 
             for i in pygame.event.get():
+                self.desktop.handle_event(i)
+
                 if i.type == pygame.QUIT or (i.type == pygame.KEYDOWN and i.key == pygame.K_ESCAPE):
-                    # Quit the program
-                    sys.exit()
-                    pygame.quit()
+                    quit_program()
 
             # Draw the desktop
             self.desktop.draw()
